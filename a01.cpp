@@ -77,6 +77,7 @@ void Assignment1::render()
       glClear(GL_STENCIL_BUFFER_BIT);
 
       // TODO A1 (c), setup stencil buffer
+      glEnable(GL_CULL_FACE);
       glColorMask(false, false, false, false);
       glDepthMask(false);
       glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -91,6 +92,8 @@ void Assignment1::render()
 
      // TODO A1 (c), reset to opengl default values
       glDisable(GL_STENCIL_TEST);
+      glDisable(GL_CULL_FACE);
+      glDisable(GL_DEPTH_TEST);
       
       //stencil debug
       if (debugStencil)
@@ -104,6 +107,8 @@ void Assignment1::render()
         // TODO A1 (c), setup depth and stencil setting for masking
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_STENCIL_TEST);
+        glStencilFunc(GL_EQUAL, 1, 0xFF);
+        glStencilOp(GL_KEEP, GL_REPLACE, GL_KEEP);
 
         glUseProgram(shader("stencilDebug"));
         quad.draw();
@@ -120,7 +125,7 @@ void Assignment1::render()
       glEnable(GL_CULL_FACE);
       glDepthFunc(GL_ALWAYS);
       // TODO A1 (b) & (c), take care of correct culling modes
-      glCullFace(GL_BACK);
+      glCullFace(GL_FRONT);
 
       if (stencilCulling)
       {

@@ -21,7 +21,7 @@ void main()
 { 
 	vec2 tc = gl_FragCoord.xy / resolution;
 	vec4 fragPosition = texture2D(position, tc);
-	vec4 distanceFromLight = fragPosition - v_center;
+	vec4 distanceFromLight = fragPosition - v_center / v_center.w;
 	vec3 col;
 	if(length(distanceFromLight) <= radius){
 		float normalizedDistance = length(distanceFromLight) / radius;

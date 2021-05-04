@@ -43,7 +43,10 @@ void main()
 		// Note that, the approximation of Phong lighting using the halfway vector (which is used by the reference)
 		// yields slightly different results than regular Phong lighting
 		
-		float diff = max(dot(texture2D(normal, TC).rgb ,-lightDir), 0.0);
+		vec3 light2 = (viewMatrix * vec4(lightDir, 0)).rgb;
+		float diff = max(dot(texture2D(normal, TC).rgb ,-light2), 0.0);
+		
+		//float diff = max(dot(texture2D(normal, TC).rgb ,-lightDir), 0.0);
 		vec3 diffuseLight =  diffuseColor * diff;
 		
 		vec3 viewDir = normalize(-texture2D(position, TC).rgb); //why? viewspace cameraPosition
